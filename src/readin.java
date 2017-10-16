@@ -1,4 +1,4 @@
-import java.io.*;
+﻿import java.io.*;
 import java.util.*;
 public class readin {
 	public static HashMap<String,String> a=new HashMap<String,String>();
