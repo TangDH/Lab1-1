@@ -1,46 +1,57 @@
-ï»¿import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
-import javax.imageio.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class window extends JFrame{
-	private JTextField route;
-	private JTabbedPane jp2;
-	private JLabel jl21=new JLabel();
-	public window()
-	{
-		JPanel jp1=new JPanel();
-		
-		JButton getroute=new JButton("é€‰æ‹©æ–‡ä»¶");
-		getroute.setSize(10,10);
-		getroute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				JFileChooser fileChooser=new JFileChooser(".\\");
-				fileChooser.showOpenDialog(null);
-				String s=fileChooser.getSelectedFile().getPath();
-				route.setText(s);
-				try 
-				{
-					jp2.setVisible(true);
-					readin.getin(s);
-					readin.showDirectedGraph();
-					//
-					readin.getBridgeWords();
-				}catch(FileNotFoundException ee)
-				{
-					JOptionPane.showMessageDialog(null,"Wrong","æ–‡ä»¶ä¸å­˜åœ¨!",JOptionPane.ERROR_MESSAGE);
+  private JTextField route;
+  private JTabbedPane jp2;
+  private JLabel jl21 = new JLabel();
+  public window()
+  {
+    JPanel jp1 = new JPanel();
+    JButton getroute = new JButton("Ñ¡ÔñÎÄ¼þ");
+    getroute.setSize(10, 10);
+    getroute.addActionListener(new ActionListener() {
+    public void actionPerformed(final ActionEvent e) {
+     JFileChooser fileChooser = new JFileChooser(".\\");
+     fileChooser.showOpenDialog(null);
+     String s = fileChooser.getSelectedFile().getPath();
+     route.setText(s);
+     try {
+         jp2.setVisible(true);
+         readin.getin(s);
+         readin.showDirectedGraph();
+         readin.getBridgeWords();
+     } catch (FileNotFoundException ee)
+     {
+					JOptionPane.showMessageDialog(null, "Wrong", "ÎÄ¼þ²»´æÔÚ!",JOptionPane.ERROR_MESSAGE);
 				}catch(IOException ee)
 				{
-					JOptionPane.showMessageDialog(null,"Wrong","æ–‡ä»¶å¼‚å¸¸!",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Wrong","ÎÄ¼þÒì³£!",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		route=new JTextField(50);
+		route =new JTextField(50);
 		route.setEditable(false);
 		
 		jp1.add(getroute);
@@ -53,16 +64,16 @@ public class window extends JFrame{
 		JPanel jp23=new JPanel();
 		JPanel jp24=new JPanel();
 		JPanel jp25=new JPanel();
-		jp2.add(jp21,"å±•ç¤ºæœ‰å‘å›¾");
-		jp2.add(jp22,"æŸ¥è¯¢æ¡¥æŽ¥è¯");
-		jp2.add(jp23,"ç”Ÿæˆæ–°æ–‡æœ¬");
-		jp2.add(jp24,"è®¡ç®—æœ€çŸ­è·¯å¾„");
-		jp2.add(jp25,"éšæœºæ¸¸èµ°");
+		jp2.add(jp21,"Õ¹Ê¾ÓÐÏòÍ¼");
+		jp2.add(jp22,"²éÑ¯ÇÅ½Ó´Ê");
+		jp2.add(jp23,"Éú³ÉÐÂÎÄ±¾");
+		jp2.add(jp24,"¼ÆËã×î¶ÌÂ·¾¶");
+		jp2.add(jp25,"Ëæ»úÓÎ×ß");
 		
-		JButton jb211=new JButton("æ˜¾ç¤ºæœ‰å‘å›¾");
-		JButton jb212=new JButton("éšè—");
+		JButton jb211=new JButton("ÏÔÊ¾ÓÐÏòÍ¼");
+		JButton jb212=new JButton("Òþ²Ø");
 		jb211.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				try{
 					jl21.setIcon(new ImageIcon(ImageIO.read(new File("show.gif")))); 
@@ -73,7 +84,7 @@ public class window extends JFrame{
 			}
 		});
 		jb212.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				jl21.setIcon(null);
 			}
@@ -104,7 +115,7 @@ public class window extends JFrame{
 		jpp22.add(jb22);
 		JLabel jt223=new JLabel();
 		jb22.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				String word1=jt221.getText();
 				String word2=jt222.getText();
@@ -123,7 +134,7 @@ public class window extends JFrame{
 		jpp23.add(jt23);
 		jpp23.add(jb23);
 		jb23.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				String text=jt23.getText();
 				jl23.setText(readin.generateNewText(text));
@@ -142,26 +153,26 @@ public class window extends JFrame{
 		JTextField jt242=new JTextField();
 		JTextField jt243=new JTextField();
 		JButton jb241=new JButton("GO!");
-		JButton jb242=new JButton("æ¸…é™¤æœ‰å‘å›¾");
-		JButton jb243=new JButton("æ˜¾ç¤ºæœ‰å‘å›¾");
+		JButton jb242=new JButton("Çå³ýÓÐÏòÍ¼");
+		JButton jb243=new JButton("ÏÔÊ¾ÓÐÏòÍ¼");
 		JScrollPane js24=new JScrollPane(jl243);
 		//jl241.setText();
 		//jl242.setText();
 		jt243.setEditable(false);
 		jb241.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				jt243.setText(readin.calcShortestPath(jt241.getText(),jt242.getText()));
 			}
 		});
 		jb242.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				jl243.setIcon(null);
 			}
 		});
 		jb243.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				//ImageIcon icon = new ImageIcon("calc.gif");
 				//jl243.setIcon(icon);
@@ -202,18 +213,19 @@ public class window extends JFrame{
 		jp25.add(js25,BorderLayout.CENTER);
 		jp25.add(jl252,BorderLayout.SOUTH);
 		jb251.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 				jl252.setText(readin.randomWalk());
 				readin.deleteFile("random.gif");
-				GraphViz gViz=new GraphViz("random", "D:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+				GraphViz gViz=new GraphViz("random", "F:\\bin\\dot.exe");
 		        gViz.start_graph();
 		        //gViz.addln("A->B;");
 		        String[] xx=new String[]{"black","red"};
-		        for(int i=1;i<=readin.n;i++)
-		        	for(int j=1;j<=readin.n;j++)
+		        for(int i=1;i<=readin.n;i++) {
+					for(int j=1;j<=readin.n;j++)
 		        		if(i!=j && readin.tab[i][j]>0)
 		        			gViz.addln(readin.ss[i]+"->"+readin.ss[j]+"["+"label="+readin.tab[i][j]+" color=\""+xx[readin.vis[i][j]]+"\""+"]"+";");
+				}
 		        gViz.end_graph();
 		        try {
 		            gViz.run();
@@ -223,7 +235,7 @@ public class window extends JFrame{
 			}
 		});
 		jb252.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
 		        //jl25.setIcon(new ImageIcon("random.gif"));
 		        try{
@@ -248,11 +260,12 @@ public class window extends JFrame{
 			}
 		});
 		jb253.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
+			public void actionPerformed(final ActionEvent e)
 			{
-				for(int i=0;i<100;i++)
+				for(int i=0;i<100;i++) {
 					for(int j=0;j<100;j++)
 						readin.vis[i][j]=0;
+				}
 				Random ra=new Random();
 				readin.cur=ra.nextInt(readin.n)+1;
 				readin.randomroute=readin.ss[readin.cur];
@@ -272,9 +285,9 @@ public class window extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		// TODO Auto-generated method stub
-		window obj=new window();
+		window obj = new window();
 	}
 }
 //change

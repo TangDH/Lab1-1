@@ -1,5 +1,10 @@
-﻿import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Random;
+
 public class readin {
 	public static HashMap<String,String> a=new HashMap<String,String>();
 	public static int[][][] rec=new int[100][100][100];
@@ -11,9 +16,9 @@ public class readin {
 	public static int cur=0;
 	public static String randomroute="";
 	
-    public static boolean deleteFile(String sPath) {
+    public static boolean deleteFile(final String sPath) {
         boolean flag = false;
-        File file = new File(sPath);
+       final  File file = new File(sPath);
         if (file.isFile() && file.exists()) {
             file.delete();
             flag = true;
@@ -21,9 +26,9 @@ public class readin {
         return flag;
     }
 	
-    public static boolean check(String path)
+    public static boolean check(final String path)
     {
-    	File file=new File(path);
+    	final File file=new File(path);
     	if(file.isFile()&&file.exists())
     		return true;
     	return false;
@@ -32,7 +37,7 @@ public class readin {
 	public static void showDirectedGraph()
 	{
 		deleteFile("show.gif");
-		GraphViz gViz=new GraphViz("show", "D:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+		GraphViz gViz=new GraphViz("show", "F:\\bin\\dot.exe");
         gViz.start_graph();
         //gViz.addln("A->B;");
         for(int i=1;i<=n;i++)
@@ -61,16 +66,15 @@ public class readin {
 						rec[j][k][0]++;
 						rec[j][k][rec[j][k][0]]=i;
 					}
-		return;
 	}
 	
-	public static String queryBridgeWords(String word1,String word2)
+	public static String queryBridgeWords(final String word1,final String word2)
 	{
 		String res="No "+"\""+word1+"\""+"or "+"\""+word2+"\" in the graph!";
 		if(a.get(word1)!=null && a.get(word2)!=null)
 		{
-			int id1=Integer.parseInt(a.get(word1));
-			int id2=Integer.parseInt(a.get(word2));
+			final int id1=Integer.parseInt(a.get(word1));
+			final int id2=Integer.parseInt(a.get(word2));
 			if(rec[id1][id2][0]>0)
 			{
 				res="The bridge words from "+"\""+word1+"\" "+"to "+"\""+word2+"\" ";
@@ -91,7 +95,7 @@ public class readin {
 		return res;
 	}
 	
-	public static String generateNewText(String input)
+	public static String generateNewText(final String input)
 	{
 		String word1="";
 		String word2="";
@@ -99,11 +103,11 @@ public class readin {
 		String res="";
 		for(int i=0;i<input.length();i++)
 		{
-			char ch=input.charAt(i);
+			final char ch=input.charAt(i);
 			if((ch>='a' && ch<='z')||(ch>='A' && ch<='Z'))
-				inputText=inputText+ch;
+				inputText += ch;
 			else if((ch>6 && ch<14)||(ch>31 && ch<35)||(ch>38 && ch<42)||ch==58||ch==59||ch==63||(ch>43&&ch<47)||ch==91||ch==93||ch==123||ch==125)
-				inputText=inputText+' ';
+				inputText += ' ';
 		}
 		int i=0;
 		for(i=0;i<inputText.length();i++)
@@ -111,7 +115,7 @@ public class readin {
 			if(inputText.charAt(i)==' ')
 				break;
 			res=res+inputText.charAt(i);
-			word1=word1+inputText.charAt(i);
+			word1 += inputText.charAt(i);
 		}
 		i++;
 		for(;i<inputText.length();i++)
@@ -123,18 +127,18 @@ public class readin {
 				//System.out.println(word2);
 				if(a.get(word1)!=null && a.get(word2)!=null)
 				{
-					Random ra=new Random();
-					int id1=Integer.parseInt(a.get(word1));
-					int id2=Integer.parseInt(a.get(word2));
+					final Random ra=new Random();
+					final int id1=Integer.parseInt(a.get(word1));
+					final int id2=Integer.parseInt(a.get(word2));
 					System.out.println(rec[id1][id2][0]);
 					if(rec[id1][id2][0]>0)
 					{
-						int tmp=ra.nextInt(rec[id1][id2][0])+1;
+						final int tmp=ra.nextInt(rec[id1][id2][0])+1;
 						res=res+" "+ss[rec[id1][id2][tmp]]+" "+word2;
 					}
 					else res=res+" "+word2;
 				}
-				else res=res+" "+word2;
+				else res += (" " + word2);
 				word1=word2;
 				word2="";
 			}
@@ -144,14 +148,14 @@ public class readin {
 		//System.out.println(word2);
 		if(a.get(word1)!=null && a.get(word2)!=null)
 		{
-			Random ra=new Random();
-			int id1=Integer.parseInt(a.get(word1));
-			int id2=Integer.parseInt(a.get(word2));
+			final Random ra=new Random();
+			final int id1=Integer.parseInt(a.get(word1));
+			final int id2=Integer.parseInt(a.get(word2));
 			System.out.println(rec[id1][id2][0]);
 			if(rec[id1][id2][0]>0)
 			{
-				int tmp=ra.nextInt(rec[id1][id2][0])+1;
-				res=res+" "+ss[rec[id1][id2][tmp]]+" "+word2;
+				final int tmp=ra.nextInt(rec[id1][id2][0])+1;
+				res +=( " "+ss[rec[id1][id2][tmp]]+" "+word2);
 			}
 			else res=res+" "+word2;
 		}
@@ -159,7 +163,7 @@ public class readin {
 		return res;
 	}
 	
-	public static void getpoint(int u,int v,int distance,int[][] vp)
+	public static void getpoint(final int u,final int v,final int distance,int[][] vp)
 	{
 		if(tab[u][v]==distance)
 		{
@@ -172,15 +176,14 @@ public class readin {
 				getpoint(u,i,dis[u][i],vp);
 				getpoint(i,v,dis[i][v],vp);
 			}
-		return;
 	}
 	
-	public static String calcShortestPath(String word1,String word2)
+	public static String calcShortestPath(final String word1,final String word2)
 	{
 		if(a.get(word1)!=null && a.get(word2)!=null)
 		{
 			int id1=Integer.parseInt(a.get(word1));
-			int id2=Integer.parseInt(a.get(word2));
+			final int id2=Integer.parseInt(a.get(word2));
 			//if(dis[id1][id2]==999999) return "";
 			int[][] vp=new int[100][100];
 			for(int i=0;i<100;i++)
@@ -197,7 +200,7 @@ public class readin {
 		        	for(int j=1;j<=n;j++)
 		        		if(vp[i][j]==1)
 		        		{
-		        			res=res+"->"+ss[j];
+		        			res += ("->" + ss[j]);
 		        			vp[i][j]=2;
 		        			i=j;
 		        			break;
@@ -206,7 +209,7 @@ public class readin {
 			}
 	        
 	        deleteFile("calc.gif");
-			GraphViz gViz=new GraphViz("calc", "D:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+			final GraphViz gViz=new GraphViz("calc", "F:\\bin\\dot.exe");
 	        gViz.start_graph();
 	        //gViz.addln("A->B;");
 	        String[] color=new String[] {"black","green","red"};
@@ -226,7 +229,7 @@ public class readin {
 		return "";
 	}
 	
-	public static int find(int x,int[][] vis)
+	public static int find(final int x,int[][] vis)
 	{
 		int[] to=new int[100];
 		to[0]=0;
@@ -236,7 +239,7 @@ public class readin {
 		if(to[0]>0)
 		{
 			Random ra=new Random();
-			int tmp=ra.nextInt(to[0])+1;
+			final int tmp=ra.nextInt(to[0])+1;
 			vis[x][to[tmp]]=1;
 			return to[tmp];
 		}
@@ -267,12 +270,12 @@ public class readin {
 				for(int j=1;j<=n;j++)
 					if(dis[i][k]+dis[k][j]<dis[i][j])
 						dis[i][j]=dis[i][k]+dis[k][j];
-		return;
+
 	}
 	
-	public static int getin(String fileroute)throws FileNotFoundException,IOException
+	public static int getin(final String fileroute)throws FileNotFoundException,IOException
 	{
-		FileReader inData=new FileReader(fileroute);
+		final FileReader inData=new FileReader(fileroute);
 		for(int i=0;i<100;i++)
 			for(int j=0;j<100;j++)
 				tab[i][j]=0;
@@ -306,7 +309,7 @@ public class readin {
 			}
 			ch=inData.read();
 		}
-		if(cur!="")
+		if(cur.equals(""))
 		{
 			a.put(cur,String.valueOf(++n));
 			ss[n]=cur;

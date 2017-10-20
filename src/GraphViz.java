@@ -1,4 +1,4 @@
-﻿import java.io.File;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ public class  GraphViz{
     private String runPath = "";
     private String dotPath = ""; 
     private String runOrder="";
-    private String dotCodeFile="dotcode.txt";
+    final private String dotCodeFile="dotcode.txt";
     private StringBuilder graph = new StringBuilder();
 
     Runtime runtime=Runtime.getRuntime();
@@ -42,7 +42,7 @@ public class  GraphViz{
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(dotcode.getBytes());
             fos.close();
-        } catch (java.io.IOException ioe) { 
+        } catch (IOException ioe) { 
             ioe.printStackTrace();
         }
      }  
@@ -52,15 +52,15 @@ public class  GraphViz{
         this.dotPath=dotPath;
     }
 
-    public void add(String line) {
+    public void add(final String line) {
         graph.append("\t"+line);
     }
 
-    public void addln(String line) {
+    public void addln(final String line) {
         graph.append("\t"+line + "\n");
     }
 
-    public void addln() {
+    public final void addln() {
         graph.append('\n');
     }
 
@@ -71,8 +71,6 @@ public class  GraphViz{
     public void end_graph() {
         graph.append("}") ;
     }   
-<<<<<<< HEAD
+
 } //change
-=======
-}
->>>>>>> 164e624c2ed650e8e84a2d1751ccbb3ae389817d
+
